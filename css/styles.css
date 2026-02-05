@@ -2,7 +2,6 @@
 
 body{background:#f4f4f4;color:#111}
 
-/* ================= HEADER ================= */
 .header{
   background:#000;
   color:#fff;
@@ -23,7 +22,6 @@ body{background:#f4f4f4;color:#111}
 
 .header nav a:hover{opacity:.8}
 
-/* ================= HERO ================= */
 .hero{
   text-align:center;
   padding:60px 20px;
@@ -34,10 +32,8 @@ body{background:#f4f4f4;color:#111}
 .hero h1{font-size:32px;margin-bottom:10px}
 .hero p{font-size:16px;opacity:.9}
 
-/* ================= CONTAINER ================= */
 .container{padding:40px}
 
-/* ================= PRODUCT GRID ================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -71,7 +67,7 @@ body{background:#f4f4f4;color:#111}
   margin:10px 0
 }
 
-/* ================= BUTTONS ================= */
+
 button{
   padding:8px 15px;
   background:#000;
@@ -82,7 +78,6 @@ button{
 
 button:hover{background:#444}
 
-/* ================= AUTH (LOGIN / SIGNUP) ================= */
 .auth-container,
 .auth-box{
   max-width:400px;
@@ -107,7 +102,7 @@ input{
   border-radius:4px
 }
 
-/* ================= FOOTER ================= */
+
 footer{
   text-align:center;
   padding:20px;
@@ -115,8 +110,15 @@ footer{
   color:#666
 }
 
-/* ================= RESPONSIVE ================= */
 @media(max-width:600px){
   .hero h1{font-size:24px}
   .container{padding:20px}
 }
+body{
+  background-image: url("back.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+

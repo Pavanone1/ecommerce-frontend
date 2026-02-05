@@ -4,17 +4,96 @@
   <meta charset="UTF-8">
   <title>Login - MyShop</title>
   <link rel="stylesheet" href="css/styles.css">
+
   <style>
-    .auth-container { max-width:400px;margin:60px auto;padding:30px;border:1px solid #ddd;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-    .auth-container input, .auth-container button { width:100%;padding:10px;margin-bottom:15px; border-radius:5px; border:1px solid #ccc;}
-    .auth-container button { background:black;color:white; border:none; cursor:pointer;}
-    .toggle-link{ display:block;text-align:center;margin-top:15px;color:blue;cursor:pointer;text-decoration:underline;}
-    .error-msg{color:red;font-size:14px;margin-bottom:10px;}
+    /* ===== FULL PAGE BACKGROUND ===== */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: 
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url("back.jpg"); /* 🔴 PUT YOUR IMAGE PATH HERE */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* ===== LOGIN CARD ===== */
+    .auth-container {
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .auth-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .auth-container input,
+    .auth-container button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .auth-container button {
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .auth-container button:hover {
+      background: #333;
+    }
+
+    .toggle-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* ===== HEADER FIX ===== */
+    .header {
+      background: black;
+      color: white;
+      padding: 15px 30px;
+    }
+
+    .header a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+    }
   </style>
 </head>
+
 <body>
+
 <header class="header">
-  <h2 class="logo"><a href="index.html" style="color:white;text-decoration:none;">MyShop</a></h2>
+  <h2 class="logo">
+    <a href="index.html">MyShop</a>
+  </h2>
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="index.html">Products</a>
@@ -26,14 +105,21 @@
 
 <section class="auth-container">
   <h2>Login</h2>
+
   <div class="error-msg" id="loginError"></div>
-  <input type="email" id="loginEmail" placeholder="Email">
-  <input type="password" id="loginPassword" placeholder="Password">
+
+  <input type="email" id="loginEmail" placeholder="Email" required>
+  <input type="password" id="loginPassword" placeholder="Password" required>
+
   <button id="loginBtn">Login</button>
-  <span class="toggle-link" id="goSignup">Don't have an account? Sign Up</span>
+
+  <span class="toggle-link" id="goSignup">
+    Don't have an account? Sign Up
+  </span>
 </section>
 
 <script src="js/firebaseConfig.js"></script>
 <script src="js/auth.js"></script>
+
 </body>
 </html>

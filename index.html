@@ -5,7 +5,7 @@
   <title>MyShop - Home</title>
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    /* Quick inline CSS for demo purposes */
+    
     .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
     .product-card { border: 1px solid #ddd; padding: 15px; text-align: center; }
     .product-card img { width: 100%; height: 150px; object-fit: contain; }
@@ -50,7 +50,7 @@
 <!-- Auth JS -->
 <script src="js/auth.js"></script>
 
-<!-- Script to display products and handle Add to Cart -->
+<!-- Script to display products, Add to Cart -->
 <script>
 const productGrid = document.getElementById("productGrid");
 const cartCount = document.getElementById("cartCount");
@@ -71,7 +71,7 @@ fetch("https://fakestoreapi.com/products")
     `).join("");
   });
 
-// Add to cart function
+// Add to cart 
 function addToCart(id, title, price, image){
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   const existingIndex = cart.findIndex(item => item.id === id && !item.size && !item.color);
