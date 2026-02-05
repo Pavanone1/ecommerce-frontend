@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart - MyShop</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .cart-container { padding: 40px; max-width: 1000px; margin: auto; }
+    .cart-header, .cart-item { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr; gap: 10px; align-items: center; border-bottom: 1px solid #ddd; padding: 10px 0; }
+    .cart-header { font-weight: bold; border-bottom: 2px solid #000; }
+    .cart-item img { width: 80px; height: 80px; object-fit: contain; }
+    .item-quantity { display: flex; align-items: center; gap: 5px; }
+    .item-quantity button { width: 25px; height: 25px; cursor: pointer; }
+    .item-remove { cursor: pointer; color: red; font-weight: bold; text-align: center; }
+    .cart-total { text-align: right; margin-top: 20px; font-size: 18px; font-weight: bold; }
+    .checkout-btn { margin-top: 20px; padding: 12px 25px; background: black; color: white; border: none; cursor: pointer; float: right; }
+    @media(max-width:768px){
+      .cart-header, .cart-item { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, auto); }
+      .item-remove { text-align: left; }
+      .checkout-btn { width: 100%; float: none; }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <h2 class="logo"><a href="index.html" style="color:white;text-decoration:none;">MyShop</a></h2>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+  <div id="userInfo"></div>
+</header>
+
+<section class="cart-container">
+  <h1>Your Cart</h1>
+  <div class="cart-header">
+    <div>Product</div>
+    <div>Price</div>
+    <div>Quantity</div>
+    <div>Total</div>
+    <div>Remove</div>
+  </div>
+  <div id="cartItems"></div>
+  <div class="cart-total" id="cartTotal"></div>
+  <button class="checkout-btn">Proceed to Checkout</button>
+</section>
+
+<script src="js/firebaseConfig.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

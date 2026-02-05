@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up - MyShop</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .auth-container { max-width:400px;margin:60px auto;padding:30px;border:1px solid #ddd;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+    .auth-container input, .auth-container button { width:100%;padding:10px;margin-bottom:15px; border-radius:5px; border:1px solid #ccc;}
+    .auth-container button { background:black;color:white; border:none; cursor:pointer;}
+    .toggle-link{ display:block;text-align:center;margin-top:15px;color:blue;cursor:pointer;text-decoration:underline;}
+    .error-msg{color:red;font-size:14px;margin-bottom:10px;}
+    .success-msg{color:green;font-size:14px;margin-bottom:10px;}
+  </style>
+</head>
+<body>
+<header class="header">
+  <h2 class="logo"><a href="index.html" style="color:white;text-decoration:none;">MyShop</a></h2>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+  <div id="userInfo"></div>
+</header>
+
+<section class="auth-container">
+  <h2>Sign Up</h2>
+  <div class="error-msg" id="signupError"></div>
+  <div class="success-msg" id="signupSuccess"></div>
+  <input type="text" id="signupName" placeholder="Full Name">
+  <input type="email" id="signupEmail" placeholder="Email">
+  <input type="password" id="signupPassword" placeholder="Password">
+  <input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
+  <button id="signupBtn">Sign Up</button>
+  <span class="toggle-link" id="goLogin">Already have an account? Login</span>
+</section>
+
+<script src="js/firebaseConfig.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

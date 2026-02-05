@@ -2,36 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ecommerce Frontend</title>
+  <title>MyShop - Home</title>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Quick inline CSS for demo purposes */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+    .product-card { border: 1px solid #ddd; padding: 15px; text-align: center; }
+    .product-card img { width: 100%; height: 150px; object-fit: contain; }
+    .price { font-weight: bold; margin: 10px 0; }
+    button { padding: 8px 15px; background: black; color: white; border: none; cursor: pointer; }
+    button:hover { background: #444; }
+    .login-btn { float: right; margin-left: 15px; padding: 5px 10px; background: green; color: white; border-radius: 5px; }
+  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1 class="logo">ShopNow</h1>
-  </header>
+<header class="header">
+  <h2 class="logo"><a href="index.html" style="color:white; text-decoration:none;">PIRU STORE</a></h2>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+  <button class="login-btn" id="loginBtnHeader">Login</button>
+  <div id="userInfo"></div>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h2>Biggest Sale of the Year</h2>
-    <p>Discover amazing products at unbeatable prices</p>
-    <button>Shop Now</button>
-  </section>
+<section class="hero">
+  <h1>Biggest Sale of the Year</h1>
+  <p>Discover amazing products at great prices</p>
+  <button onclick="window.location.href='index.html'">Shop Now</button>
+</section>
 
-  <!-- PRODUCTS -->
-  <section class="products">
-    <h2 class="section-title">Products</h2>
+<section class="products">
+  <h2>Products</h2>
+  <div class="product-grid" id="productGrid"></div>
+</section>
 
-    <!-- Loading & Error -->
-    <div id="loading">Loading products...</div>
-    <div id="error"></div>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-    <!-- Product Grid -->
-    <div id="product-grid" class="product-grid"></div>
-  </section>
+<!-- Firebase config -->
+<script src="js/firebaseConfig.js"></script>
 
-  <script src="js/script.js"></script>
+<!-- Auth JS -->
+<script src="js/auth.js"></script>
+
+<!-- Script to display products and handle Add to Cart -->
+<script>
+const productGrid = document.getElementById("productGrid");
+const cartCount = document.getElementById("cartCount");
+
+// Fetch products from API
+fetch("https://fakestoreapi.com/products")
+  .then(res => res.json())
+  .then(products => {
+    productGrid.innerHTML = products.map(product => `
+      <div class="product-card">
+        <a href="product.html?id=${product.id}">
+          <img src="${product.image}" alt="${product.title}" loading="lazy">
+          <h3>${product.title}</h3>
+        </a>
+        <p class="price">$${product.price}</p>
+        <button onclick="addToCart(${product.id}, '${product.title}', ${product.price}, '${product.image}')">Add to Cart</button>
+      </div>
+    `).join("");
+  });
+
+// Add to cart function
+function addToCart(id, title, price, image){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existingIndex = cart.findIndex(item => item.id === id && !item.size && !item.color);
+  if(existingIndex >= 0){
+    cart[existingIndex].quantity += 1;
+  } else {
+    cart.push({ id, title, price, quantity: 1, image });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+}
+
+// Update cart count in header
+function updateCartCount(){
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalQty = cart.reduce((acc, item) => acc + item.quantity, 0);
+  cartCount.textContent = totalQty;
+}
+
+// Initialize cart count
+updateCartCount();
+
+// Login button redirect
+document.getElementById("loginBtnHeader").addEventListener("click", ()=>{
+  window.location.href = "login.html";
+});
+</script>
+
 </body>
 </html>

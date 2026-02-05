@@ -1,63 +1,33 @@
-const API_URL = "https://fakestoreapi.com/products";
+const productGrid = document.getElementById("productGrid");
+const cartCount = document.getElementById("cartCount");
 
-const productGrid = document.getElementById("product-grid");
-const loading = document.getElementById("loading");
-const errorBox = document.getElementById("error");
-
-let cachedProducts = null;
-
-async function fetchProducts() {
-  loading.style.display = "block";
-  errorBox.textContent = "";
-
-  try {
-    if (cachedProducts) {
-      renderProducts(cachedProducts);
-      loading.style.display = "none";
-      return;
-    }
-
-    const response = await fetch(API_URL);
-
-    if (!response.ok) {
-      throw new Error("API error");
-    }
-
-    const products = await response.json();
-    cachedProducts = products;
-
-    renderProducts(products);
-
-  } catch (error) {
-    errorBox.textContent = "Failed to load products. Please try again.";
-    console.error(error);
-  } finally {
-    loading.style.display = "none";
-  }
-}
-
-function renderProducts(products) {
-  productGrid.innerHTML = "";
-
-  products.forEach(product => {
-    const card = document.createElement("div");
-    card.className = "product-card";
-
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.title}" loading="lazy">
-      <div class="product-info">
-        <h3>${product.title}</h3>
-        <p>₹ ${Math.round(product.price * 80)}</p>
-        <button onclick="addToCart()">Add to Cart</button>
+fetch("https://fakestoreapi.com/products")
+  .then(res => res.json())
+  .then(products => {
+    productGrid.innerHTML = products.map(product => `
+      <div class="product-card">
+        <a href="product.html?id=${product.id}">
+          <img src="${product.image}" alt="${product.title}" loading="lazy">
+          <h3>${product.title}</h3>
+        </a>
+        <p class="price">$${product.price}</p>
+        <button onclick="addToCart(${product.id}, '${product.title}', ${product.price}, '${product.image}')">Add to Cart</button>
       </div>
-    `;
-
-    productGrid.appendChild(card);
+    `).join("");
   });
+
+function addToCart(id, title, price, image){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existingIndex = cart.findIndex(item => item.id===id && !item.size && !item.color);
+  if(existingIndex >=0){ cart[existingIndex].quantity +=1; }
+  else { cart.push({id,title,price,quantity:1,image}); }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
 }
 
-function addToCart() {
-  alert("Product added to cart!");
+function updateCart(){
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cartCount.textContent = cart.reduce((acc,item)=>acc+item.quantity,0);
 }
 
-fetchProducts();
+updateCart();
